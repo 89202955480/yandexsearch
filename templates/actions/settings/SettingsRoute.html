@@ -1,0 +1,137 @@
+<div class="field-group">
+    <div class="field">
+        <div class="name">
+            Статус плагина для поселения
+        </div>
+        <div class="value no-shift s-ibutton-checkbox">
+            <input type="hidden" name="route_settings[status]" value="0">
+            <input type="checkbox" class="ibutton" name="route_settings[status]" value="1"{if $route_settings.status|default:0} checked{/if}>
+        </div>
+    </div>
+</div>
+
+<div class="field-group">
+    <h3 class="grey">Настройки подключения к API</h3>
+    <div class="field">
+        <div class="name">
+            API-ключ
+        </div>
+        <div class="value">
+            <input class="long" type="text" name="route_settings[apikey]" value="{$route_settings.apikey|default:''|escape}">
+            <p class="hint">Ключ для доступа к поиску. О том, как получить ключ см. раздел <a target="_blank" href="https://tech.yandex.ru/site/api/concepts/access-docpage/">Доступ к API<i class="icon10 new-window"></i></a></p>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">
+            SearchID
+        </div>
+        <div class="value">
+            <input class="long" type="text" name="route_settings[searchid]" value="{$route_settings.searchid|default:''|escape}">
+            <p class="hint">
+                Идентификатор поиска. Чтобы узнать идентификатор, выберите поиск на странице <a target="_blank" href="https://site.yandex.ru/searches/">Мои поиски<i class="icon10 new-window"></i></a><br/>
+                <strong>Идентификатор указан в адресной строке страницы поиска: https://site.yandex.ru/catalogs/<идентификатор_поиска></strong>
+            </p>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">
+            Адрес YML-файла
+        </div>
+        <div class="value">
+            <p class="hint">
+                <i class="icon16 exclamation"></i>Для формирования YML-файла рекомендуется использовать плагин <a target="_blank" href="{$wa_backend_url|cat:'installer/#/plugins/shop/yandexmarket/'}">Яндекс.Маркет</a><br/>
+                Адрес YML-файла необходимо указать в настройках на яндексе
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field-group">
+    <h3 class="grey">Настройки поиска</h3>
+    <div class="field">
+        <div class="name">
+            Сортировка
+        </div>
+        <div class="value">
+            <input type="hidden" name="route_settings[how]" value="0">
+            <input type="checkbox" name="route_settings[how]" value="1"{if $route_settings.how|default:1} checked="checked"{/if}>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">
+            Товар в наличии
+        </div>
+        <div class="value">
+            <input type="hidden" name="route_settings[avaliable]" value="0">
+            <input type="checkbox" name="route_settings[avaliable]" value="1"{if $route_settings.avaliable|default:1} checked="checked"{/if}>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">
+            Фильтрация по цене
+        </div>
+        <div class="value">
+            <input type="hidden" name="route_settings[price_filter]" value="0">
+            <input type="checkbox" name="route_settings[price_filter]" value="1"{if $route_settings.price_filter|default:1} checked="checked"{/if}>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">
+            Фильтрация по категории
+        </div>
+        <div class="value">
+            <input type="hidden" name="route_settings[category_filter]" value="0">
+            <input type="checkbox" name="route_settings[category_filter]" value="1"{if $route_settings.category_filter|default:1} checked="checked"{/if}>
+        </div>
+    </div>
+</div>
+
+
+<div class="field-group">
+    <h3 class="grey">Настройки вывода и отображения</h3>
+    <div class="field">
+        <div class="name">
+            Хук frontend_search
+        </div>
+        <div class="value">
+            <input type="hidden" name="route_settings[frontend_search]" value="0">
+            <input type="checkbox" name="route_settings[frontend_search]" value="1"{if $route_settings.frontend_search|default:1} checked="checked"{/if}>
+            <p class="hint">
+                Вывод формы поиска в стандартном месте, используется хук frontend_search<br/>
+                <strong>Или</strong>
+            </p>
+        </div>
+        <div class="value">
+            <div class="geshifilter">
+                {literal}
+                    <pre>{if class_exists('shopYandexsearchPlugin')}
+    {shopYandexsearchPlugin::form()}
+{/if}</pre>
+                    {/literal}
+            </div>
+            <p class="hint">
+                Код хелпера-вывода для вставки в шаблон <strong>search.html</strong>, чтобы выполнить размещение формы в произвольном месте
+            </p>
+        </div>
+    </div>
+</div>
+
+{$key = 'FrontendSearch'}
+{$template = $templates[$key]}
+<div class="field-group">
+    <div class="field">
+        <div class="name">
+            {$template.name|default:'Шаблон'}<br /><span class="hint">HTML + Smarty</span>
+        </div>
+        <div class="value no-shift">
+            <a class="edit-template" href="#"><i class="icon16 edit"></i>Изменить шаблон</a><br/><br/>
+            <div class="template-block">
+                <textarea id="sf-template-{$key}" name="templates[{$key}][template]">{$template.template|default:''|escape}</textarea>
+                {if $template.change_tpl|default:0}
+                    <p class="gray"><i class="icon16 exclamation"></i>Внимание! Шаблон по умолчанию был изменен</p>
+                    <input type="checkbox" name="templates[{$key}][reset_tpl]" value="1"  /> - Сбросить изменения, использовать шаблон по умолчанию
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
