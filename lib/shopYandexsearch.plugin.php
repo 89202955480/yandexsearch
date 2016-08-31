@@ -66,6 +66,11 @@ class shopYandexsearchPlugin extends shopPlugin {
         } else {
             return false;
         }
+
+        if (strpos(wa()->getRouting()->getCurrentUrl(), 'search') === false) {
+            return false;
+        }
+
         try {
             $html = '';
             if ($route_settings['frontend_search']) {
