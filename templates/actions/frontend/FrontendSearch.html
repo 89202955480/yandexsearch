@@ -62,9 +62,9 @@
             </select>
         </div>
     {/if}
-    {if !empty($settings.avaliable)}
+    {if !empty($settings.available)}
         <div class="yandexsearch-field">
-            <input type="checkbox" name="avaliable" value="true"{if $wa->get('avaliable')} checked="checked"{/if} /> - товар в наличии
+            <input type="checkbox" name="available" value="true"{if $wa->get('available')} checked="checked"{/if} /> - товар в наличии
         </div>
     {/if}
     {if !empty($settings.price_filter)}

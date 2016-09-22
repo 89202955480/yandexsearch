@@ -4,7 +4,7 @@ return array(
     'name' => 'Яндекс.Поиск',
     'description' => 'Повышает конверсию. Найдется ВСЕ!',
     'vendor' => 985310,
-    'version' => '1.0.2',
+    'version' => '1.0.3',
     'img' => 'img/yandexsearch.png',
     'shop_settings' => true,
     'frontend' => true,

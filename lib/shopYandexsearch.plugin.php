@@ -95,7 +95,7 @@ class shopYandexsearchPlugin extends shopPlugin {
                 'text' => urlencode($query),
                 'page' => $page - 1,
             );
-            foreach (array('how', 'price_low', 'price_high', 'category_id', 'avaliable') as $param) {
+            foreach (array('how', 'price_low', 'price_high', 'category_id', 'available') as $param) {
                 if (waRequest::get($param)) {
                     $request[$param] = waRequest::get($param);
                 }
