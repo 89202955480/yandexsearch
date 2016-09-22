@@ -164,6 +164,7 @@ class shopYandexsearchPlugin extends shopPlugin {
 
             $errors = array(
                 'INVALID_KEY' => 'Не верный API-ключ',
+                'INVALID_SEARCHID' => 'Не верный SearchID',
             );
             $message = $ex->getMessage();
             if (!empty($errors[$message])) {
@@ -173,6 +174,7 @@ class shopYandexsearchPlugin extends shopPlugin {
             } elseif (preg_match("/Key (.*) not own to search with id (.*)/", $message, $match)) {
                 $message = sprintf("Ключ '%s' не пренадлежит поиску с идентификатором %s. Укажите ключ в настройках поиска на Яндекс в разделе «Мои поиски» - «Выдача в JSON»", $match[1], $match[2]);
             }
+            waLog::log($message, 'yandexsearch.log');
             $html .= sprintf('<div class="yandexsearch-error"><strong>%s</strong></div>', $message);
         }
         return $html;
