@@ -89,11 +89,16 @@ class shopYandexsearchPlugin extends shopPlugin {
                 $page = 1;
             }
 
+            $limit = (int) waRequest::cookie('products_per_page');
+            if (!$limit || $limit < 0 || $limit > 500) {
+                $limit = wa()->getConfig()->getOption('products_per_page');
+            }
             $request = array(
                 'apikey' => $route_settings['apikey'],
                 'searchid' => $route_settings['searchid'],
                 'text' => urlencode($query),
                 'page' => $page - 1,
+                'per_page' => $limit,
             );
             foreach (array('how', 'price_low', 'price_high', 'category_id', 'available') as $param) {
                 if (waRequest::get($param)) {
